@@ -5,6 +5,7 @@ function 初期設定 () {
     basic.showString("This is Traffic Light for micro:bit !!BETA!! ")
 }
 function ボタンAが押されたとき () {
+    動作開始 = 1
     led.enable(false)
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 0)
@@ -41,7 +42,6 @@ input.onButtonPressed(Button.B, function () {
 	
 })
 function 初期待機状態 () {
-    let 動作開始 = 0
     if (動作開始 == 0) {
         while (0 == 0) {
             basic.showLeds(`
@@ -151,6 +151,7 @@ function 初期待機状態 () {
 function ボタンBが押されたとき () {
 	
 }
+let 動作開始 = 0
 初期設定()
 初期待機状態()
 basic.forever(function () {
