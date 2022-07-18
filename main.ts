@@ -1,5 +1,4 @@
 function 初期設定 () {
-    led.enable(true)
     serial.redirectToUSB()
     radio.setGroup(1)
     basic.showString("This is Traffic Light for micro:bit !!BETA!! ")
@@ -7,32 +6,43 @@ function 初期設定 () {
 function ボタンAが押されたとき () {
     動作開始 = 1
     led.enable(false)
-    pins.digitalWritePin(DigitalPin.P0, 0)
-    pins.digitalWritePin(DigitalPin.P1, 0)
-    pins.digitalWritePin(DigitalPin.P2, 0)
-    pins.digitalWritePin(DigitalPin.P3, 0)
-    pins.digitalWritePin(DigitalPin.P4, 0)
-    while (0 == 0) {
-        pins.digitalWritePin(DigitalPin.P0, 1)
-        pins.digitalWritePin(DigitalPin.P3, 1)
+    pins.digitalWritePin(DigitalPin.P0, 1)
+    pins.digitalWritePin(DigitalPin.P1, 1)
+    pins.digitalWritePin(DigitalPin.P2, 1)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P3, 1)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P4, 1)
+    while (動作開始 == 1) {
+        pins.digitalWritePin(DigitalPin.P0, 0)
+        // hokohsya
+        pins.digitalWritePin(DigitalPin.P3, 0)
         basic.pause(25000)
-        for (let index = 0; index < 8; index++) {
-            pins.digitalWritePin(DigitalPin.P3, 0)
-            basic.pause(250)
+        // hokohsya
+        for (let index = 0; index < 9; index++) {
+            // hokohsya
             pins.digitalWritePin(DigitalPin.P3, 1)
+            // hokohsya
+            basic.pause(250)
+            // hokohsya
+            pins.digitalWritePin(DigitalPin.P3, 0)
+            // hokohsya
             basic.pause(250)
         }
-        pins.digitalWritePin(DigitalPin.P3, 0)
-        pins.digitalWritePin(DigitalPin.P4, 1)
-        basic.pause(1000)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        pins.digitalWritePin(DigitalPin.P1, 1)
-        basic.pause(3000)
-        pins.digitalWritePin(DigitalPin.P1, 0)
-        pins.digitalWritePin(DigitalPin.P2, 1)
-        basic.pause(30000)
+        // hokohsya
+        pins.digitalWritePin(DigitalPin.P3, 1)
+        // hokohsya
         pins.digitalWritePin(DigitalPin.P4, 0)
+        basic.pause(1000)
+        pins.digitalWritePin(DigitalPin.P0, 1)
+        pins.digitalWritePin(DigitalPin.P1, 0)
+        basic.pause(3000)
+        pins.digitalWritePin(DigitalPin.P1, 1)
         pins.digitalWritePin(DigitalPin.P2, 0)
+        basic.pause(30000)
+        pins.digitalWritePin(DigitalPin.P2, 1)
+        // hokohsya
+        pins.digitalWritePin(DigitalPin.P4, 1)
     }
 }
 input.onButtonPressed(Button.A, function () {
@@ -144,8 +154,6 @@ function 初期待機状態 () {
             }
             basic.pause(500)
         }
-    } else if (動作開始 == 1) {
-        led.enable(false)
     }
 }
 function ボタンBが押されたとき () {
