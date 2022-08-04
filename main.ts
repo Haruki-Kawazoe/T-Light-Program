@@ -33,6 +33,9 @@ function 最初の確認 () {
         }
     }
 }
+input.onButtonPressed(Button.A, function () {
+	
+})
 function Please_select_from_below () {
     serial.writeLine("Please select from below")
     serial.writeLine("")
@@ -43,9 +46,6 @@ function Please_select_from_below () {
     serial.writeLine("{5} staggered Traffic Lighit(S)")
     serial.writeLine("{6} Custom Traffic Lighit(C)")
 }
-input.onButtonPressed(Button.B, function () {
-	
-})
 function モード選択 () {
     if (モード切替 == 1) {
         serial.writeLine("Launch mode setup")
@@ -75,6 +75,8 @@ function モード選択 () {
         } else if (serial.readLine() == "6" || serial.readLine() == "C") {
             モード = 6
             serial.writeLine("Sure Please customize")
+        } else if (false) {
+        	
         } else {
             モード = 1
             serial.writeLine("No input")
@@ -87,193 +89,89 @@ function モード選択 () {
         led.enable(false)
     } else {
         モード = 1
+        a = 1
         serial.writeLine("now starting!")
         led.enable(false)
     }
 }
-function 普通の信号機南北 () {
-    if (普通の信号機 == 1) {
-        pins.digitalWritePin(DigitalPin.P0, 1)
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P3, 1)
-        basic.pause(25000)
-        // hokohsya
-        for (let index = 0; index < 10; index++) {
-            // hokohsya
-            pins.digitalWritePin(DigitalPin.P3, 0)
-            // hokohsya
-            basic.pause(250)
-            // hokohsya
-            pins.digitalWritePin(DigitalPin.P3, 1)
-            // hokohsya
-            basic.pause(250)
-        }
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P3, 0)
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P4, 1)
-        basic.pause(4000)
-        pins.digitalWritePin(DigitalPin.P0, 0)
-        pins.digitalWritePin(DigitalPin.P1, 1)
-        basic.pause(3000)
-        pins.digitalWritePin(DigitalPin.P1, 0)
-        pins.digitalWritePin(DigitalPin.P2, 1)
-        basic.pause(40000)
-        pins.digitalWritePin(DigitalPin.P2, 0)
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P4, 0)
-    }
-}
 function 初期待機状態 () {
-    if (モード == 0) {
-        while (0 == 0) {
-            basic.showLeds(`
-                # # # # #
-                . # # # .
-                . . # . .
-                . . . . .
-                . . . . .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                # # # # #
-                . # # # .
-                . . . . .
-                . . . . .
-                . . # . .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                # # # # #
-                . # # . .
-                . . . . .
-                . . . . .
-                . # # . .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                # # # # #
-                . . # . .
-                . . . . .
-                . . . . .
-                . # # # .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                # # # # #
-                . . . . .
-                . . . . .
-                . . # . .
-                . # # # .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                # # # # .
-                . . . . .
-                . . . . .
-                . # # . .
-                . # # # .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                . # # # .
-                . . . . .
-                . . . . .
-                . # # # .
-                . # # # .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                . # # . .
-                . . . . .
-                . . . . .
-                . # # # .
-                # # # # .
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                . . # . .
-                . . . . .
-                . . . . .
-                . # # # .
-                # # # # #
-                `)
-            basic.pause(500)
-            basic.showLeds(`
-                . . . . .
-                . . . . .
-                . . # . .
-                . # # # .
-                # # # # #
-                `)
-            basic.pause(500)
-            for (let index = 0; index < 2; index++) {
-                basic.showLeds(`
-                    # # # # #
-                    # # # # #
-                    # # # # #
-                    # # # # #
-                    # # # # #
-                    `)
-                basic.pause(100)
-                basic.showLeds(`
-                    . . . . .
-                    . . . . .
-                    . . . . .
-                    . . . . .
-                    . . . . .
-                    `)
-                basic.pause(100)
-            }
-            basic.pause(500)
-        }
-    }
+	
 }
-function 普通の信号機東西 () {
-    if (普通の信号機 == 1) {
-        pins.digitalWritePin(DigitalPin.P10, 1)
+function 普通の信号機_新 () {
+    pins.digitalWritePin(DigitalPin.P2, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P7, 0)
+    pins.digitalWritePin(DigitalPin.P0, 1)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P6, 1)
+    basic.pause(25000)
+    // hokohsya
+    for (let index = 0; index < 10; index++) {
         // hokohsya
-        pins.digitalWritePin(DigitalPin.P15, 1)
-        basic.pause(40000)
-        pins.digitalWritePin(DigitalPin.P8, 1)
-        pins.digitalWritePin(DigitalPin.P14, 1)
-        basic.pause(25000)
+        pins.digitalWritePin(DigitalPin.P6, 0)
         // hokohsya
-        for (let index = 0; index < 10; index++) {
-            // hokohsya
-            pins.digitalWritePin(DigitalPin.P14, 0)
-            // hokohsya
-            basic.pause(250)
-            // hokohsya
-            pins.digitalWritePin(DigitalPin.P14, 1)
-            // hokohsya
-            basic.pause(250)
-        }
+        basic.pause(250)
+        // hokohsya
+        pins.digitalWritePin(DigitalPin.P6, 1)
+        // hokohsya
+        basic.pause(250)
+    }
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P6, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P7, 1)
+    basic.pause(5000)
+    pins.digitalWritePin(DigitalPin.P0, 0)
+    pins.digitalWritePin(DigitalPin.P1, 1)
+    basic.pause(3000)
+    pins.digitalWritePin(DigitalPin.P1, 0)
+    pins.digitalWritePin(DigitalPin.P2, 1)
+    basic.pause(3000)
+    pins.digitalWritePin(DigitalPin.P10, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P15, 0)
+    pins.digitalWritePin(DigitalPin.P8, 1)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P14, 1)
+    basic.pause(25000)
+    // hokohsya
+    for (let index = 0; index < 10; index++) {
         // hokohsya
         pins.digitalWritePin(DigitalPin.P14, 0)
         // hokohsya
-        pins.digitalWritePin(DigitalPin.P15, 1)
-        basic.pause(4000)
-        pins.digitalWritePin(DigitalPin.P8, 0)
-        pins.digitalWritePin(DigitalPin.P9, 1)
-        basic.pause(3000)
-        pins.digitalWritePin(DigitalPin.P9, 0)
-        pins.digitalWritePin(DigitalPin.P10, 1)
-        basic.pause(40000)
+        basic.pause(250)
+        // hokohsya
+        pins.digitalWritePin(DigitalPin.P14, 1)
+        // hokohsya
+        basic.pause(250)
     }
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P14, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P15, 1)
+    basic.pause(3000)
+    pins.digitalWritePin(DigitalPin.P8, 0)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    basic.pause(3000)
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 1)
+    basic.pause(3000)
 }
 function 標準起動 () {
-    モード = 1
     led.enable(false)
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P2, 0)
-    // hokohsya
     pins.digitalWritePin(DigitalPin.P3, 0)
-    // hokohsya
     pins.digitalWritePin(DigitalPin.P4, 0)
+    pins.digitalWritePin(DigitalPin.P5, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P6, 0)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P7, 0)
     普通の信号機 = 1
 }
+let a = 0
 let 普通の信号機 = 0
 let モード切替 = 0
 let モード = 0
@@ -283,25 +181,32 @@ let Nomal_Launch = 0
 カスタム起動 = 0
 モード = 0
 モード切替 = 0
+普通の信号機 = 0
+a = 1
 最初の確認()
 モード選択()
 basic.forever(function () {
-	
+    if (a > 0) {
+        if (モード == 1) {
+            標準起動()
+            a = 0
+        } else if (モード == 2) {
+        	
+        } else if (モード == 3) {
+        	
+        } else if (モード == 4) {
+        	
+        } else if (モード == 5) {
+        	
+        } else if (モード == 6) {
+            カスタム起動 = 1
+        } else {
+            標準起動()
+        }
+    }
 })
 basic.forever(function () {
-    if (モード == 1) {
-        標準起動()
-    } else if (モード == 2) {
-    	
-    } else if (モード == 3) {
-    	
-    } else if (モード == 4) {
-    	
-    } else if (モード == 5) {
-    	
-    } else if (モード == 6) {
-        カスタム起動 = 1
-    } else {
-        標準起動()
+    if (普通の信号機 == 1) {
+        普通の信号機_新()
     }
 })
