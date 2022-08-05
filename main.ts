@@ -33,6 +33,14 @@ function 最初の確認 () {
         }
     }
 }
+function 普通の信号機_初期値 () {
+    普通の信号_初期値 = [
+    0,
+    1,
+    0,
+    0
+    ]
+}
 input.onButtonPressed(Button.A, function () {
 	
 })
@@ -158,19 +166,46 @@ function 普通の信号機_新 () {
     basic.pause(3000)
 }
 function 標準起動 () {
+    let P15赤_東西_歩行者用 = 0
+    let P14青_東西_歩行者用 = 0
+    let P13右折矢印_東西_車両用 = 0
+    let P12直進矢印_東西_車両用 = 0
+    let P11左折矢印_東西_車両用 = 0
+    let P10赤_東西_車両用 = 0
+    let P09黄_東西_車両用 = 0
+    let P08青_東西_車両用 = 0
+    let P07赤_南北_歩行者用 = 0
+    let P06青_南北_歩行者用 = 0
+    let P05右折矢印_南北_車両用 = 0
+    let P04直進矢印_南北_車両用 = 0
+    let P03左折矢印_南北_車両用 = 0
+    let P02赤_南北_車両用 = 0
+    let P01黄_南北_車両用 = 0
+    let P00青_南北_車両用 = 0
     led.enable(false)
-    pins.digitalWritePin(DigitalPin.P0, 0)
-    pins.digitalWritePin(DigitalPin.P1, 0)
-    pins.digitalWritePin(DigitalPin.P2, 0)
-    pins.digitalWritePin(DigitalPin.P3, 0)
-    pins.digitalWritePin(DigitalPin.P4, 0)
-    pins.digitalWritePin(DigitalPin.P5, 0)
+    pins.digitalWritePin(DigitalPin.P0, P00青_南北_車両用)
+    pins.digitalWritePin(DigitalPin.P1, P01黄_南北_車両用)
+    pins.digitalWritePin(DigitalPin.P2, P02赤_南北_車両用)
+    pins.digitalWritePin(DigitalPin.P3, P03左折矢印_南北_車両用)
+    pins.digitalWritePin(DigitalPin.P4, P04直進矢印_南北_車両用)
+    pins.digitalWritePin(DigitalPin.P5, P05右折矢印_南北_車両用)
     // hokohsya
-    pins.digitalWritePin(DigitalPin.P6, 0)
+    pins.digitalWritePin(DigitalPin.P6, P06青_南北_歩行者用)
     // hokohsya
-    pins.digitalWritePin(DigitalPin.P7, 0)
+    pins.digitalWritePin(DigitalPin.P7, P07赤_南北_歩行者用)
+    pins.digitalWritePin(DigitalPin.P8, P08青_東西_車両用)
+    pins.digitalWritePin(DigitalPin.P9, P09黄_東西_車両用)
+    pins.digitalWritePin(DigitalPin.P10, P10赤_東西_車両用)
+    pins.digitalWritePin(DigitalPin.P11, P11左折矢印_東西_車両用)
+    pins.digitalWritePin(DigitalPin.P12, P12直進矢印_東西_車両用)
+    pins.digitalWritePin(DigitalPin.P13, P13右折矢印_東西_車両用)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P14, P14青_東西_歩行者用)
+    // hokohsya
+    pins.digitalWritePin(DigitalPin.P15, P15赤_東西_歩行者用)
     普通の信号機 = 1
 }
+let 普通の信号_初期値: number[] = []
 let a = 0
 let 普通の信号機 = 0
 let モード切替 = 0
