@@ -1,27 +1,55 @@
-function 初期設定 () {
-    serial.redirectToUSB()
-    radio.setGroup(1)
-    basic.showString("This is Traffic Light for micro:bit !!BETA!! ")
-}
-function 点滅信号 () {
-    モード = 2
-    led.enable(false)
+function リレー起動 () {
+    pins.digitalWritePin(DigitalPin.P0, 1)
+    pins.digitalWritePin(DigitalPin.P1, 1)
+    pins.digitalWritePin(DigitalPin.P2, 1)
+    pins.digitalWritePin(DigitalPin.P3, 1)
+    pins.digitalWritePin(DigitalPin.P4, 1)
+    pins.digitalWritePin(DigitalPin.P5, 1)
+    pins.digitalWritePin(DigitalPin.P6, 1)
+    pins.digitalWritePin(DigitalPin.P7, 1)
+    pins.digitalWritePin(DigitalPin.P8, 1)
+    pins.digitalWritePin(DigitalPin.P9, 1)
+    pins.digitalWritePin(DigitalPin.P10, 1)
+    pins.digitalWritePin(DigitalPin.P11, 1)
+    pins.digitalWritePin(DigitalPin.P12, 1)
+    pins.digitalWritePin(DigitalPin.P13, 1)
+    pins.digitalWritePin(DigitalPin.P14, 1)
+    pins.digitalWritePin(DigitalPin.P15, 1)
+    basic.pause(100)
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P2, 0)
-    // hokohsya
     pins.digitalWritePin(DigitalPin.P3, 0)
-    // hokohsya
     pins.digitalWritePin(DigitalPin.P4, 0)
-    while (モード == 2) {
-        pins.digitalWritePin(DigitalPin.P0, 2)
-        pins.digitalWritePin(DigitalPin.P0, 2)
-    }
+    pins.digitalWritePin(DigitalPin.P5, 0)
+    pins.digitalWritePin(DigitalPin.P6, 0)
+    pins.digitalWritePin(DigitalPin.P7, 0)
+    pins.digitalWritePin(DigitalPin.P8, 0)
+    pins.digitalWritePin(DigitalPin.P9, 0)
+    pins.digitalWritePin(DigitalPin.P10, 0)
+    pins.digitalWritePin(DigitalPin.P11, 0)
+    pins.digitalWritePin(DigitalPin.P12, 0)
+    pins.digitalWritePin(DigitalPin.P13, 0)
+    pins.digitalWritePin(DigitalPin.P14, 0)
+    pins.digitalWritePin(DigitalPin.P15, 0)
+}
+function 初期設定 () {
+    serial.redirectToUSB()
+    Nomal_Launch = 0
+    カスタム起動 = 0
+    モード = 0
+    モード切替 = 0
+    普通の信号機 = 0
+    a = 1
+    変換_秒 = 1000
+    radio.setGroup(1)
+    点滅間隔 = 250
 }
 function 最初の確認 () {
     if (pins.digitalReadPin(DigitalPin.P16) == 0) {
         モード切替 = 0
         led.enable(false)
+        a = 1
         モード = 1
     } else if (pins.digitalReadPin(DigitalPin.P16) == 1) {
         モード切替 = 1
@@ -34,16 +62,18 @@ function 最初の確認 () {
     }
 }
 function 普通の信号機_初期値 () {
-    普通の信号_初期値 = [
-    0,
-    1,
-    0,
-    0
-    ]
+    let 普通の信号_初期値: number[] = []
+    東西開始から点滅_待ち時間_歩行者用 = 30
+    南北開始から点滅_待ち時間_歩行者用 = 30
+    東西点滅回数 = 普通の信号_初期値[19]
+    南北点滅回数 = 普通の信号_初期値[20]
+    東西歩行者用赤から車両用黄 = 普通の信号_初期値[21]
+    南北歩行者用赤から車両用黄 = 普通の信号_初期値[22]
+    東西車両用黄から車両用赤 = 普通の信号_初期値[23]
+    南北車両用黄から車両用赤 = 普通の信号_初期値[24]
+    東西赤から南北青 = 普通の信号_初期値[25]
+    南北赤から東西青 = 普通の信号_初期値[26]
 }
-input.onButtonPressed(Button.A, function () {
-	
-})
 function Please_select_from_below () {
     serial.writeLine("Please select from below")
     serial.writeLine("")
@@ -101,128 +131,104 @@ function モード選択 () {
         serial.writeLine("now starting!")
         led.enable(false)
     }
+    a = 1
 }
-function 初期待機状態 () {
-	
-}
+serial.onDataReceived("reset", function () {
+    serial.writeLine("now reset!")
+    control.reset()
+})
 function 普通の信号機_新 () {
-    pins.digitalWritePin(DigitalPin.P2, 0)
+    P10赤_東西_車両用 = 1
+    P14青_東西_歩行者用 = 1
+    P00青_南北_車両用 = 1
+    P06青_南北_歩行者用 = 1
+    basic.pause(南北開始から点滅_待ち時間_歩行者用 * 変換_秒)
     // hokohsya
-    pins.digitalWritePin(DigitalPin.P7, 0)
-    pins.digitalWritePin(DigitalPin.P0, 1)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P6, 1)
-    basic.pause(25000)
-    // hokohsya
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 南北点滅回数; index++) {
+        P06青_南北_歩行者用 = 0
         // hokohsya
-        pins.digitalWritePin(DigitalPin.P6, 0)
+        basic.pause(点滅間隔)
+        P06青_南北_歩行者用 = 1
         // hokohsya
-        basic.pause(250)
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P6, 1)
-        // hokohsya
-        basic.pause(250)
+        basic.pause(点滅間隔)
     }
+    P06青_南北_歩行者用 = 0
+    P07赤_南北_歩行者用 = 1
+    basic.pause(南北歩行者用赤から車両用黄 * 変換_秒)
+    P00青_南北_車両用 = 0
+    P01黄_南北_車両用 = 1
+    basic.pause(南北車両用黄から車両用赤 * 変換_秒)
+    P01黄_南北_車両用 = 0
+    P02赤_南北_車両用 = 1
+    basic.pause(南北赤から東西青 * 変換_秒)
+    P10赤_東西_車両用 = 0
+    P15赤_東西_歩行者用 = 0
+    P08青_東西_車両用 = 1
+    P14青_東西_歩行者用 = 1
+    basic.pause(東西開始から点滅_待ち時間_歩行者用 * 変換_秒)
     // hokohsya
-    pins.digitalWritePin(DigitalPin.P6, 0)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P7, 1)
-    basic.pause(5000)
-    pins.digitalWritePin(DigitalPin.P0, 0)
-    pins.digitalWritePin(DigitalPin.P1, 1)
-    basic.pause(3000)
-    pins.digitalWritePin(DigitalPin.P1, 0)
-    pins.digitalWritePin(DigitalPin.P2, 1)
-    basic.pause(3000)
-    pins.digitalWritePin(DigitalPin.P10, 0)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P15, 0)
-    pins.digitalWritePin(DigitalPin.P8, 1)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P14, 1)
-    basic.pause(25000)
-    // hokohsya
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 東西点滅回数; index++) {
+        P14青_東西_歩行者用 = 0
         // hokohsya
-        pins.digitalWritePin(DigitalPin.P14, 0)
+        basic.pause(点滅間隔)
+        P14青_東西_歩行者用 = 1
         // hokohsya
-        basic.pause(250)
-        // hokohsya
-        pins.digitalWritePin(DigitalPin.P14, 1)
-        // hokohsya
-        basic.pause(250)
+        basic.pause(点滅間隔)
     }
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P14, 0)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P15, 1)
-    basic.pause(3000)
-    pins.digitalWritePin(DigitalPin.P8, 0)
-    pins.digitalWritePin(DigitalPin.P9, 1)
-    basic.pause(3000)
-    pins.digitalWritePin(DigitalPin.P9, 0)
-    pins.digitalWritePin(DigitalPin.P10, 1)
-    basic.pause(3000)
+    P14青_東西_歩行者用 = 0
+    P15赤_東西_歩行者用 = 1
+    basic.pause(東西歩行者用赤から車両用黄 * 変換_秒)
+    P08青_東西_車両用 = 0
+    P09黄_東西_車両用 = 1
+    basic.pause(東西車両用黄から車両用赤 * 変換_秒)
+    P09黄_東西_車両用 = 0
+    P10赤_東西_車両用 = 1
+    basic.pause(東西赤から南北青 * 変換_秒)
 }
 function 標準起動 () {
-    let P15赤_東西_歩行者用 = 0
-    let P14青_東西_歩行者用 = 0
-    let P13右折矢印_東西_車両用 = 0
-    let P12直進矢印_東西_車両用 = 0
-    let P11左折矢印_東西_車両用 = 0
-    let P10赤_東西_車両用 = 0
-    let P09黄_東西_車両用 = 0
-    let P08青_東西_車両用 = 0
-    let P07赤_南北_歩行者用 = 0
-    let P06青_南北_歩行者用 = 0
-    let P05右折矢印_南北_車両用 = 0
-    let P04直進矢印_南北_車両用 = 0
-    let P03左折矢印_南北_車両用 = 0
-    let P02赤_南北_車両用 = 0
-    let P01黄_南北_車両用 = 0
-    let P00青_南北_車両用 = 0
     led.enable(false)
-    pins.digitalWritePin(DigitalPin.P0, P00青_南北_車両用)
-    pins.digitalWritePin(DigitalPin.P1, P01黄_南北_車両用)
-    pins.digitalWritePin(DigitalPin.P2, P02赤_南北_車両用)
-    pins.digitalWritePin(DigitalPin.P3, P03左折矢印_南北_車両用)
-    pins.digitalWritePin(DigitalPin.P4, P04直進矢印_南北_車両用)
-    pins.digitalWritePin(DigitalPin.P5, P05右折矢印_南北_車両用)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P6, P06青_南北_歩行者用)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P7, P07赤_南北_歩行者用)
-    pins.digitalWritePin(DigitalPin.P8, P08青_東西_車両用)
-    pins.digitalWritePin(DigitalPin.P9, P09黄_東西_車両用)
-    pins.digitalWritePin(DigitalPin.P10, P10赤_東西_車両用)
-    pins.digitalWritePin(DigitalPin.P11, P11左折矢印_東西_車両用)
-    pins.digitalWritePin(DigitalPin.P12, P12直進矢印_東西_車両用)
-    pins.digitalWritePin(DigitalPin.P13, P13右折矢印_東西_車両用)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P14, P14青_東西_歩行者用)
-    // hokohsya
-    pins.digitalWritePin(DigitalPin.P15, P15赤_東西_歩行者用)
-    普通の信号機 = 1
+    普通の信号機_初期値()
+    while (モード == 1) {
+        普通の信号機_新()
+    }
 }
-let 普通の信号_初期値: number[] = []
+let P05右折矢印_南北_車両用 = 0
+let P09黄_東西_車両用 = 0
+let P08青_東西_車両用 = 0
+let P15赤_東西_歩行者用 = 0
+let P02赤_南北_車両用 = 0
+let P01黄_南北_車両用 = 0
+let P07赤_南北_歩行者用 = 0
+let P06青_南北_歩行者用 = 0
+let P00青_南北_車両用 = 0
+let P14青_東西_歩行者用 = 0
+let P10赤_東西_車両用 = 0
+let 南北赤から東西青 = 0
+let 東西赤から南北青 = 0
+let 南北車両用黄から車両用赤 = 0
+let 東西車両用黄から車両用赤 = 0
+let 南北歩行者用赤から車両用黄 = 0
+let 東西歩行者用赤から車両用黄 = 0
+let 南北点滅回数 = 0
+let 東西点滅回数 = 0
+let 南北開始から点滅_待ち時間_歩行者用 = 0
+let 東西開始から点滅_待ち時間_歩行者用 = 0
+let 点滅間隔 = 0
+let 変換_秒 = 0
 let a = 0
 let 普通の信号機 = 0
 let モード切替 = 0
 let モード = 0
 let カスタム起動 = 0
-serial.redirectToUSB()
 let Nomal_Launch = 0
-カスタム起動 = 0
-モード = 0
-モード切替 = 0
-普通の信号機 = 0
-a = 1
+初期設定()
 最初の確認()
 モード選択()
+リレー起動()
 basic.forever(function () {
     if (a > 0) {
         if (モード == 1) {
+            普通の信号機 = 1
             標準起動()
             a = 0
         } else if (モード == 2) {
@@ -241,7 +247,37 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (普通の信号機 == 1) {
-        普通の信号機_新()
+	
+})
+basic.forever(function () {
+    if (P01黄_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P1, 1)
+    }
+})
+basic.forever(function () {
+    if (P02赤_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P2, 1)
+    }
+})
+basic.forever(function () {
+    let P03左折矢印_南北_車両用 = 0
+    if (P03左折矢印_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P3, 1)
+    }
+})
+basic.forever(function () {
+    let P04直進矢印_南北_車両用 = 0
+    if (P04直進矢印_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P4, 1)
+    }
+})
+basic.forever(function () {
+    if (P05右折矢印_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P5, 1)
+    }
+})
+basic.forever(function () {
+    if (P05右折矢印_南北_車両用 == 1) {
+    	
     }
 })
