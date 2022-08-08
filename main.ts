@@ -192,7 +192,6 @@ function 標準起動 () {
         普通の信号機_新()
     }
 }
-let P05右折矢印_南北_車両用 = 0
 let P09黄_東西_車両用 = 0
 let P08青_東西_車両用 = 0
 let P15赤_東西_歩行者用 = 0
@@ -247,7 +246,9 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-	
+    if (P00青_南北_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P0, 1)
+    }
 })
 basic.forever(function () {
     if (P01黄_南北_車両用 == 1) {
@@ -272,12 +273,66 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    let P05右折矢印_南北_車両用 = 0
     if (P05右折矢印_南北_車両用 == 1) {
         pins.digitalWritePin(DigitalPin.P5, 1)
     }
 })
 basic.forever(function () {
-    if (P05右折矢印_南北_車両用 == 1) {
-    	
+    if (P06青_南北_歩行者用 == 1) {
+        pins.digitalWritePin(DigitalPin.P6, 1)
+    }
+})
+basic.forever(function () {
+    if (P07赤_南北_歩行者用 == 1) {
+        pins.digitalWritePin(DigitalPin.P7, 1)
+    }
+})
+basic.forever(function () {
+    if (P08青_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P8, 1)
+    }
+})
+basic.forever(function () {
+    if (P08青_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P8, 1)
+    }
+})
+basic.forever(function () {
+    if (P09黄_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P9, 1)
+    }
+})
+basic.forever(function () {
+    if (P10赤_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P10, 1)
+    }
+})
+basic.forever(function () {
+    let P11左折矢印_東西_車両用 = 0
+    if (P11左折矢印_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P11, 1)
+    }
+})
+basic.forever(function () {
+    let P12直進矢印_東西_車両用 = 0
+    if (P12直進矢印_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P12, 1)
+    }
+})
+basic.forever(function () {
+    let P13右折矢印_東西_車両用 = 0
+    if (P13右折矢印_東西_車両用 == 1) {
+        pins.digitalWritePin(DigitalPin.P13, 1)
+    }
+})
+basic.forever(function () {
+    if (P15赤_東西_歩行者用 == 1) {
+        pins.digitalWritePin(DigitalPin.P15, 1)
+    }
+})
+basic.forever(function () {
+    if (P14青_東西_歩行者用 == 1) {
+        pins.digitalWritePin(DigitalPin.P14, 1)
     }
 })
